@@ -302,7 +302,6 @@ async def get_learning_path(
 
     user_level = current_user.expertise_level or "beginner"
     user_langs = current_user.top_languages or []
-    skill_vector = current_user.skill_vector or {}
     tree_summary = _file_tree_summary(file_tree, max_files=80)
 
     # Identify skill gaps
@@ -517,18 +516,17 @@ async def get_contribution_readiness(
             issue_context = f"""
 Specific issue #{issue_number}: {issue.get('title', '')}
 {(issue.get('body') or '')[:1000]}
-Labels: {', '.join(l['name'] for l in issue.get('labels', []))}"""
+Labels: {', '.join(lbl['name'] for lbl in issue.get('labels', []))}"""
         except Exception:
             pass
 
     user_skills = current_user.top_languages or []
     user_level = current_user.expertise_level or "beginner"
-    skill_vector = current_user.skill_vector or {}
 
     repo_langs = list(languages.keys())
     user_lang_set = set(s.lower() for s in user_skills)
-    matching = [l for l in repo_langs if l.lower() in user_lang_set]
-    missing = [l for l in repo_langs if l.lower() not in user_lang_set]
+    matching = [lbl for lbl in repo_langs if lbl.lower() in user_lang_set]
+    missing = [lbl for lbl in repo_langs if lbl.lower() not in user_lang_set]
 
     system = """You are a developer readiness assessor. Evaluate how ready this developer is to contribute.
 Return JSON:
@@ -575,7 +573,7 @@ Developer profile:
         "readiness_score": base_score,
         "verdict": "Needs preparation" if base_score < 50 else "Ready",
         "strengths": matching,
-        "gaps": [{"skill": l, "importance": "high", "learn_hours": 8} for l in missing[:3]],
+        "gaps": [{"skill": l, "importance": "high", "learn_hours": 8} for lbl in missing[:3]],
         "matching_languages": matching,
         "missing_languages": missing[:5],
         "repo": f"{owner}/{repo}",

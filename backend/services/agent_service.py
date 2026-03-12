@@ -251,7 +251,7 @@ When referencing files or functions, use their exact names from the context."""
 
 Repository: {repo_full_name}
 Issue #{issue.get('number')}: {issue.get('title')}
-Labels: {', '.join([l.get('name', '') for l in (issue.get('labels') or [])])}
+Labels: {', '.join([lbl.get('name', '') for lbl in (issue.get('labels') or [])])}
 Issue Body:
 {(issue.get('body') or '')[:2000]}
 

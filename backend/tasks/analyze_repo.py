@@ -3,9 +3,7 @@ Main repository analysis Celery task pipeline.
 Orchestrates: fetch → parse → embed → graph → analyze → issue analysis.
 """
 import asyncio
-import json
 from datetime import datetime
-from celery import shared_task
 import structlog
 
 from celery_app import celery_app
@@ -24,7 +22,6 @@ def full_analysis(self, repo_id: str, owner: str, repo_name: str, github_token: 
 
 async def _run_full_analysis(task, repo_id: str, owner: str, repo_name: str, github_token: str = None):
     """Async implementation of the analysis pipeline."""
-    from config import settings
     from database import AsyncSessionLocal
     from models.repository import Repository, AnalysisStatus
     from models.issue import Issue
@@ -32,7 +29,6 @@ async def _run_full_analysis(task, repo_id: str, owner: str, repo_name: str, git
     from services.agent_service import get_agent_service
     from services.rag_service import get_rag_service
     from services.graph_service import get_graph_service
-    from services.embedding_service import get_embedding_service
     from sqlalchemy import select
 
     github = GitHubService(github_token)

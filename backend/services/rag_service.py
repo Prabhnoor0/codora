@@ -4,10 +4,9 @@ Handles indexing repository into Qdrant and retrieval for LLM context.
 """
 import uuid
 from typing import Optional
-from qdrant_client.models import PointStruct, Filter, FieldCondition, MatchValue, SearchRequest
+from qdrant_client.models import PointStruct
 import structlog
 
-from config import settings
 from qdrant_store import get_client, get_repo_collections
 from services.embedding_service import get_embedding_service
 

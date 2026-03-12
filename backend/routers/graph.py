@@ -10,8 +10,6 @@ router = APIRouter()
 @router.get("/repo/{owner}/{repo_name}/architecture")
 async def get_repo_graph(owner: str, repo_name: str, current_user=Depends(get_current_user)):
     """Get repository code graph structure."""
-    from sqlalchemy import select
-    from database import get_db
     # This is simplified — in production we'd get the repo_id from DB
     graph = get_graph_service()
     return await graph.get_repo_architecture(f"{owner}_{repo_name}")

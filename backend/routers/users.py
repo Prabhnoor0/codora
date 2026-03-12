@@ -5,7 +5,6 @@ from sqlalchemy import select
 from datetime import datetime
 
 from database import get_db
-from models.user import User
 from models.learning import LearningPath, LearningProgress
 from routers.deps import get_current_user
 from services.graph_service import get_graph_service

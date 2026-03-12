@@ -23,7 +23,7 @@ function MermaidDiagram({ diagram }: { diagram: string }) {
  lineColor:"#475569", fontSize:"14px", textColor:"#0f172a"
  }});
  const id ="mermaid-" + Math.random().toString(36).slice(2);
- mermaid.render(id, diagram).then(({ svg: rendered }) => setSvg(rendered)).catch(() => {
+ mermaid.render(id, diagram).then(({ svg: rendered }: any) => setSvg(rendered)).catch(() => {
  setError(true);
  });
  }).catch(() => setError(true));

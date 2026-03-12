@@ -3,7 +3,7 @@ import { useState, useEffect } from"react";
 import { useParams, useRouter } from"next/navigation";
 import { useUserStore, useChatbotStore } from "@/lib/store";
 import { motion } from"framer-motion";
-import { ArrowLeft, Clock, MessageSquare, AlertCircle, Play, CheckCircle2, FileText, Bot, Github, Zap } from"lucide-react";
+import { ArrowLeft, Clock, MessageSquare, AlertCircle, Play, CheckCircle2, FileText, Bot, Zap } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL ||"http://localhost:8000";
 

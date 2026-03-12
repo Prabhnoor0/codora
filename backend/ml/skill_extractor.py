@@ -1,7 +1,6 @@
 """
 Skills analysis service — extract developer expertise from GitHub profile data.
 """
-from typing import Optional
 import structlog
 
 log = structlog.get_logger()

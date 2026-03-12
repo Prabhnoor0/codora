@@ -1,7 +1,7 @@
 """Repository and analysis job models."""
 import uuid
 from datetime import datetime
-from sqlalchemy import String, Integer, Float, DateTime, JSON, Boolean, Text, ForeignKey, Enum
+from sqlalchemy import String, Integer, DateTime, JSON, Boolean, Text, ForeignKey, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 import enum

@@ -13,7 +13,8 @@ import ReactMarkdown from"react-markdown";
 const API = process.env.NEXT_PUBLIC_API_URL ||"http://localhost:8000";
 
 function MermaidDiagram({ diagram }: { diagram: string }) {
- const [svg, setSvg] = useState<string>("");
+  const [svg, setSvg] = useState<string>("");
+  const [error, setError] = useState(false);
 
  useEffect(() => {
  if (!diagram) return;
@@ -23,10 +24,11 @@ function MermaidDiagram({ diagram }: { diagram: string }) {
  lineColor:"#4f46e5", fontSize:"14px", textColor:"#0f172a"
  }});
  const id ="mermaid-" + Math.random().toString(36).slice(2);
- mermaid.render(id, diagram).then(({ svg: rendered }) => setSvg(rendered)).catch(() => {});
+ mermaid.render(id, diagram).then(({ svg: rendered }: any) => setSvg(rendered)).catch(() => setError(true));
  });
  }, [diagram]);
 
+ if (error) return <div className="p-12 text-center text-sm font-semibold text-red-400 bg-red-50 border border-red-100">Failed to render diagram.</div>;
  if (!svg) return <div className="p-12 text-center text-sm font-semibold text-slate-400 bg-slate-50 border border-slate-100">Loading diagram architecture...</div>;
  return <div dangerouslySetInnerHTML={{ __html: svg }} className="text-center overflow-x-auto bg-white p-8 border border-slate-100" />;
 }
@@ -288,11 +290,12 @@ export default function DeepIntelPage() {
  }`}>
  <ReactMarkdown 
  components={{
- code({inline, children}) {
- return inline ? 
- <code className="bg-slate-100 text-indigo-600 px-1.5 py-0.5 font-mono text-xs">{children}</code> :
- <pre className="bg-slate-900 text-slate-300 p-4 my-3 overflow-x-auto text-xs"><code className="font-mono">{children}</code></pre>
- },
+                      code({className, children, ...props}: any) {
+                        const inline = !className;
+                        return inline ? 
+                          <code className="bg-slate-100 text-indigo-600 px-1.5 py-0.5 font-mono text-xs">{children}</code> :
+                          <pre className="bg-slate-900 text-slate-300 p-4 my-3 overflow-x-auto text-xs"><code className="font-mono">{children}</code></pre>
+                      },
  p({children}) { return <p className="mb-3 last:mb-0">{children}</p> },
  a({href, children}) { return <a href={href} className="text-indigo-500 font-bold hover:underline">{children}</a> }
  }}

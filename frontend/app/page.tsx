@@ -3,7 +3,7 @@
 import { useState } from"react";
 import { useRouter } from"next/navigation";
 import { motion } from"framer-motion";
-import { Github, ArrowRight, Play, Brain, Search, Zap, Code2, Users, Database } from"lucide-react";
+import { ArrowRight, Play, Brain, Search, Zap, Code2, Users, Database } from "lucide-react";
 import { useUserStore } from"@/lib/store";
 
 const API = process.env.NEXT_PUBLIC_API_URL ||"http://localhost:8000";

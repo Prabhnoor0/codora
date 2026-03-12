@@ -1,6 +1,6 @@
 """Repositories router — analysis, summary, architecture."""
 import re
-from fastapi import APIRouter, HTTPException, Depends, BackgroundTasks, WebSocket
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 import structlog

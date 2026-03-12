@@ -1,7 +1,7 @@
 """User and developer profile models."""
 import uuid
 from datetime import datetime
-from sqlalchemy import String, Integer, Float, DateTime, JSON, Boolean, Text
+from sqlalchemy import String, Integer, DateTime, JSON, Boolean, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 

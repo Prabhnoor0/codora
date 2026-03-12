@@ -1,0 +1,9 @@
+[lint]
+ignore = [
+    "F821",   # Undefined name — false positive for SQLAlchemy string forward references
+]
+
+[lint.per-file-ignores]
+"tasks/analyze_repo.py" = ["E701", "E741"]
+"services/embedding_service.py" = ["E741"]
+"routers/discover.py" = ["E701"]

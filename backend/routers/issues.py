@@ -140,7 +140,7 @@ async def get_issue_tutor(
             "number": raw_issue["number"],
             "title": raw_issue["title"],
             "body": raw_issue.get("body", ""),
-            "labels": [l["name"] for l in raw_issue.get("labels", [])],
+            "labels": [lbl["name"] for lbl in raw_issue.get("labels", [])],
         }
     else:
         issue_dict = {

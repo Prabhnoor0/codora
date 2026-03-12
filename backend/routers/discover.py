@@ -9,7 +9,6 @@ from database import get_db
 from routers.deps import get_current_user
 from services.github_service import GitHubService
 from services.llm_service import get_llm_service
-from config import settings
 
 router = APIRouter()
 log = structlog.get_logger()
@@ -40,7 +39,7 @@ def _skill_match_score(repo_languages: dict, repo_topics: list, user_skills: lis
     """Return 0-100 skill match. Weighted by commit-frequency (skill_vector) if available."""
     if not user_skills and not skill_vector:
         return 50
-    repo_lang_lower = {k.lower(): v for k, v in repo_languages.items()}
+    {k.lower(): v for k, v in repo_languages.items()}
     total_repo_bytes = sum(repo_languages.values()) or 1
     topic_set = {t.lower() for t in repo_topics}
 
@@ -113,7 +112,7 @@ async def discover_projects(
 
     # Option B: repos that explicitly have good-first-issues in user's languages
     search_langs = [language] if language else (user_skills[:2] if user_skills else ["Python"])
-    lang_query = " ".join(f"language:{l}" for l in search_langs[:2])
+    lang_query = " ".join(f"language:{lbl}" for lbl in search_langs[:2])
     
     from datetime import datetime, timedelta
     recent_date = (datetime.utcnow() - timedelta(days=60)).strftime("%Y-%m-%d")
@@ -212,7 +211,7 @@ async def get_project_detail(
         user_level,
     )
 
-    import json, re
+    import re
 
     ctx = f"""Repository: {owner}/{repo}
 Languages: {', '.join(list(lang_data.keys())[:8])}
@@ -241,7 +240,7 @@ Return a JSON object with:
     except Exception as e:
         log.warning("LLM metadata failed", error=str(e))
         ai_summary = repo_data.get("description", "")
-        tech_breakdown = [{"name": l, "role": "Primary Language"} for l in list(lang_data.keys())[:4]]
+        tech_breakdown = [{"name": l, "role": "Primary Language"} for lbl in list(lang_data.keys())[:4]]
         getting_started = ["Fork and clone the repository", "Read the README and CONTRIBUTING guide", "Run the dev environment locally", "Browse open issues labelled 'good first issue'"]
 
     # Call 2: Mermaid diagram as plain text (NOT embedded in JSON to avoid escaping issues)
@@ -264,7 +263,7 @@ Generate a Mermaid graph LR diagram showing the real architecture of this projec
         log.warning("LLM diagram failed", error=str(e))
         langs = list(lang_data.keys())[:4]
         mermaid_diagram = "graph LR\n" + "\n".join(
-            [f"  {chr(65+i)}[\"{l}\"]" for i, l in enumerate(langs)] +
+            [f"  {chr(65+i)}[\"{lbl}\"]" for i, lbl in enumerate(langs)] +
             [f"  A --> {chr(65+i)}" for i in range(1, len(langs))]
         ) if langs else "graph LR\n  A[\"Project\"] --> B[\"Codebase\"]"
 
@@ -278,7 +277,7 @@ Generate a Mermaid graph LR diagram showing the real architecture of this projec
         # Try to find beginner friendly ones
         beginner_issues = [
             i for i in issues_only
-            if any(l["name"].lower() in ["good first issue", "beginner", "easy", "help wanted", "starter"] for l in i.get("labels", []))
+            if any(lbl["name"].lower() in ["good first issue", "beginner", "easy", "help wanted", "starter"] for lbl in i.get("labels", []))
         ]
         
         # We will return the first 15 issues, marking beginner friendly ones
@@ -291,7 +290,7 @@ Generate a Mermaid graph LR diagram showing the real architecture of this projec
                 "number": i["number"],
                 "title": i["title"],
                 "body": (i.get("body") or "")[:150] + "...",
-                "labels": [l["name"] for l in i.get("labels", [])][:3],
+                "labels": [lbl["name"] for lbl in i.get("labels", [])][:3],
                 "comments": i.get("comments", 0),
                 "difficulty": "Easy" if is_easy else "Medium",
                 "html_url": i.get("html_url")
@@ -358,7 +357,7 @@ async def get_issue_detail(
     if isinstance(comments, Exception):
         comments = []
 
-    issue_text = f"""Issue #{number}: {issue.get('title', '')}
+    f"""Issue #{number}: {issue.get('title', '')}
 
 {issue.get('body', 'No description.')}"""
 
@@ -392,7 +391,8 @@ Return only the JSON."""
             "You are a senior open source contributor mentoring junior developers. Return only valid JSON.",
             prompt,
         )
-        import json, re
+        import json
+        import re
         json_match = re.search(r'\{.*\}', response, re.DOTALL)
         if json_match:
             parsed = json.loads(json_match.group())
@@ -414,7 +414,7 @@ Return only the JSON."""
         "title": issue.get("title"),
         "body": issue.get("body") or "",
         "state": issue.get("state"),
-        "labels": [l["name"] for l in issue.get("labels", [])],
+        "labels": [lbl["name"] for lbl in issue.get("labels", [])],
         "comments_count": issue.get("comments", 0),
         "created_at": issue.get("created_at"),
         "html_url": issue.get("html_url"),
@@ -480,7 +480,8 @@ Respond with JSON only:
   "suggestions": ["<improvement>"],
   "can_submit_pr": <true if score >= 85 else false>
 }}"""
-        import json, re
+        import json
+        import re
         response = await llm.complete(
             "You are a strict senior code reviewer. Return valid JSON only.",
             prompt,
@@ -518,7 +519,8 @@ async def submit_pull_request(
     if not user_code or not file_path:
         raise HTTPException(status_code=400, detail="code and file_path are required")
 
-    import base64, httpx
+    import base64
+    import httpx
     token = current_user.github_access_token
     if not token:
         raise HTTPException(status_code=401, detail="No GitHub token")
