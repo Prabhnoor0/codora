@@ -1,4 +1,4 @@
-# 🧠 AI Open Source Mentor
+#  AI Open Source Mentor
 
 > **GitHub + Coursera + Duolingo + Copilot + StackOverflow + Mentor** — in one AI-powered platform.
 
@@ -6,25 +6,25 @@ An intelligent mentorship platform that understands repositories, understands de
 
 ---
 
-## ✨ Features
+##  Features
 
 | Feature | Description |
 |---|---|
-| 🔍 **Repository Explainer** | AI analyzes README, code, architecture, and generates a complete overview |
-| 🏗️ **Architecture Visualization** | Interactive React Flow diagrams of services, modules, data flows |
-| 📦 **Subsystem Discovery** | Groups files into logical systems (Auth, Payments, API, etc.) |
-| 🗺️ **Knowledge Graph** | Neo4j graph: File→Function→Class→Module→Dependency |
-| 🎓 **AI Codebase Teacher** | Personalized day-by-day learning paths |
-| 💬 **AI Mentor Chat** | Repository-aware streaming chat (never generic responses) |
-| 🎯 **Contribution Readiness Score** | 0-100 score per issue with missing skills |
-| 📚 **Issue Tutor** | Converts issues into structured learning experiences |
-| 🔮 **Affected File Prediction** | Predicts which files an issue will touch |
-| 🤖 **PR Reviewer** | AI detects bugs, security issues, architectural violations |
-| 🧩 **Developer Knowledge Graph** | Long-term memory of your skills and learning progress |
+|  **Repository Explainer** | AI analyzes README, code, architecture, and generates a complete overview |
+|  **Architecture Visualization** | Interactive React Flow diagrams of services, modules, data flows |
+|  **Subsystem Discovery** | Groups files into logical systems (Auth, Payments, API, etc.) |
+|  **Knowledge Graph** | Neo4j graph: File→Function→Class→Module→Dependency |
+|  **AI Codebase Teacher** | Personalized day-by-day learning paths |
+|  **AI Mentor Chat** | Repository-aware streaming chat (never generic responses) |
+|  **Contribution Readiness Score** | 0-100 score per issue with missing skills |
+|  **Issue Tutor** | Converts issues into structured learning experiences |
+|  **Affected File Prediction** | Predicts which files an issue will touch |
+|  **PR Reviewer** | AI detects bugs, security issues, architectural violations |
+|  **Developer Knowledge Graph** | Long-term memory of your skills and learning progress |
 
 ---
 
-## 🏛️ Architecture
+##  Architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -50,7 +50,7 @@ An intelligent mentorship platform that understands repositories, understands de
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
@@ -110,7 +110,7 @@ make migrate
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **Next.js 14** (App Router) + **TypeScript**
@@ -141,7 +141,7 @@ make migrate
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 ai-open-source-mentor/
@@ -189,7 +189,7 @@ ai-open-source-mentor/
 
 ---
 
-## 🧪 Development Commands
+##  Development Commands
 
 ```bash
 make dev              # Start all services
@@ -204,7 +204,7 @@ make shell-neo4j      # Cypher shell
 
 ---
 
-## 🤖 AI Agent Architecture
+##  AI Agent Architecture
 
 ```
 User Question
@@ -227,7 +227,7 @@ Each agent:
 
 ---
 
-## 📊 Data Flow
+##  Data Flow
 
 ```
 GitHub URL
@@ -247,7 +247,7 @@ Repository Metadata + File Tree + README + Issues
 
 ---
 
-## 🔐 Environment Variables
+##  Environment Variables
 
 See [`.env.example`](.env.example) for all variables.
 
@@ -260,6 +260,3 @@ See [`.env.example`](.env.example) for all variables.
 
 ---
 
-## 📝 License
-
-MIT
